@@ -1,9 +1,13 @@
-
 class WeatherModel:
 
     def __init__(self):
+        self.forecast_day = None
+        self.forecast = None
+        self.current_temperature = None
+        self.current_date = None
+        self.current_day = None
+        self.current_time = None
         self.wind = None
-        self.temperature = None
         self.precipitation = None
         self.feelsLike = None
         self.location = None
@@ -12,33 +16,27 @@ class WeatherModel:
         self.sky = None
         self.icon = None
         self.date = None
-        self.main = None
+        self.current = None
 
     def set_data(self, data):
-        self.main = data['current']
-        self.temperature = self.main['temp_c']
-        self.wind = self.main['wind_kph']
-        self.precipitation = self.main['precip_mm']
-        self.feelsLike = self.main['feelslike_c']
+        self.current = data['current']
+        self.current_temperature = int(self.current['temp_c'])
+        self.wind = self.current['wind_kph']
+        self.precipitation = self.current['precip_mm']
+        self.feelsLike = int(self.current['feelslike_c'])
         self.location = data['location']
         self.city = self.location['name']
-        self.report = self.main['condition']
+        self.report = self.current['condition']
         self.sky = self.report['text']
         self.date = self.location['localtime']
         self.icon = self.report['icon']
-        print(f"City: {self.city}")
-        print(f"Date: {self.date}")
-        print(f"Temperature: {self.temperature}\u2103")
-        print(f"Wind: {self.wind} km/h")
-        print(f"Precipitation: {self.precipitation} mm")
-        print(f"Feels Like: {self.feelsLike}\u2103")
-        print(f"Weather Report: {self.sky}")
-        print(f"icon: {self.icon}")
+        self.forecast = data['forecast']
+        self.forecast_day = self.forecast['forecastday']
 
     def get_data(self):
         return {
             'wind': self.wind,
-            'temperature': self.temperature,
+            'current_temperature': self.current_temperature,
             'precipitation': self.precipitation,
             'feelsLike': self.feelsLike,
             'location': self.location,
@@ -47,8 +45,25 @@ class WeatherModel:
             'sky': self.sky,
             'icon': self.icon,
             'date': self.date,
-            'main': self.main
+            'current': self.current,
+            'current_time': self.current_time,
+            'current_day': self.current_day,
+            'current_date': self.current_date,
+            'forecastday': self.forecast_day
         }
+
+    def set_clock(self, time):
+        self.current_time = time
+
+    def set_date(self, date, day):
+        self.current_date = date
+        self.current_day = day
+
+    def get_clock(self):
+        return self.current_time
+
+    def get_date(self):
+        return self.current_date
 
     def get_variable(self, variable):
         data = self.get_data()
