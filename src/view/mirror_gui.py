@@ -66,7 +66,7 @@ class View:
         self.im = self.im.resize((144, 144))
         self.current_image = PIL.ImageTk.PhotoImage(self.im)
 
-        self.current_icon = self.canvas.create_image(
+        self.root.current_icon = self.canvas.create_image(
             -24,
             8,
             image=self.current_image,
@@ -98,14 +98,14 @@ class View:
         fp = fp.replace('//cdn.weatherapi.com/','')
 
         self.im = PIL.Image.open(fp)
-        self.im = self.im.resize((128, 128))
+        self.im = self.im.resize((144, 144))
         self.current_image = PIL.ImageTk.PhotoImage(self.im)
         self.canvas.itemconfigure(self.root.current_icon, image=self.current_image)
         self.canvas.itemconfigure(self.root.date, text=self.date_str)
-        self.canvas.itemconfigure(self.root.current_sky, data['sky'])
-        self.canvas.itemconfigure(self.root.current_temp, temp)
-        self.canvas.itemconfigure(self.root.current_perc, precipitation)
-        self.canvas.itemconfigure(self.root.current_feels, feelslike)
+        self.canvas.itemconfigure(self.root.current_sky, text=data['sky'])
+        self.canvas.itemconfigure(self.root.current_temp, text=temp)
+        self.canvas.itemconfigure(self.root.current_perc, text=precipitation)
+        self.canvas.itemconfigure(self.root.current_feels, text=feelslike)
 
     def forecast_gui(self, data):
         self.forecast = data['forecastday']
@@ -143,17 +143,17 @@ class View:
         self.im1 = PIL.Image.open(fp)
 
         self.day1_image = PIL.ImageTk.PhotoImage(self.im1)
-        self.d1_icon = self.canvas.create_image(
+        self.root.d1_icon = self.canvas.create_image(
             72,
             256,
             image=self.day1_image,
             anchor="nw",
         )
-        self.f_day1 = self.canvas.create_text(24, 272.0, anchor="nw", text=f_date, fill="#FFFFFF",
+        self.root.f_day1 = self.canvas.create_text(24, 272.0, anchor="nw", text=f_date, fill="#FFFFFF",
                                               font=("Inter Light", 24 * -1))
-        self.canvas.create_text(144.0, 272.0, anchor="nw", text=temp_max, fill="#FFFFFF", font=("Inter Light", 24 * -1))
-        self.canvas.create_text(208.0, 272.0, anchor="nw", text=temp_min, fill="#949494", font=("Inter Light", 24 * -1))
-        self.canvas.create_text(271.0, 272.0, anchor="nw", text=totalprecip_mm, fill="#FFFFFF",
+        self.root.f_tempmax1 = self.canvas.create_text(144.0, 272.0, anchor="nw", text=temp_max, fill="#FFFFFF", font=("Inter Light", 24 * -1))
+        self.root.f_tempmin1 = self.canvas.create_text(208.0, 272.0, anchor="nw", text=temp_min, fill="#949494", font=("Inter Light", 24 * -1))
+        self.root.f_precip1 = self.canvas.create_text(271.0, 272.0, anchor="nw", text=totalprecip_mm, fill="#FFFFFF",
                                 font=("Inter Light", 24 * -1))
 
         # Forecast Day 2:
@@ -169,16 +169,16 @@ class View:
         self.im2 = PIL.Image.open(fp)
 
         self.day2_image = PIL.ImageTk.PhotoImage(self.im2)
-        self.d2_icon = self.canvas.create_image(
+        self.root.d2_icon = self.canvas.create_image(
             72,
             320,
             image=self.day2_image,
             anchor="nw",
         )
-        self.canvas.create_text(24, 336.0, anchor="nw", text=f_date, fill="#FFFFFF", font=("Inter Light", 24 * -1))
-        self.canvas.create_text(144.0, 336.0, anchor="nw", text=temp_max, fill="#FFFFFF", font=("Inter Light", 24 * -1))
-        self.canvas.create_text(208.0, 336.0, anchor="nw", text=temp_min, fill="#949494", font=("Inter Light", 24 * -1))
-        self.canvas.create_text(271.0, 336.0, anchor="nw", text=totalprecip_mm, fill="#FFFFFF",
+        self.root.f_day2 = self.canvas.create_text(24, 336.0, anchor="nw", text=f_date, fill="#FFFFFF", font=("Inter Light", 24 * -1))
+        self.root.f_tempmax2 = self.canvas.create_text(144.0, 336.0, anchor="nw", text=temp_max, fill="#FFFFFF", font=("Inter Light", 24 * -1))
+        self.root.f_tempmin2 = self.canvas.create_text(208.0, 336.0, anchor="nw", text=temp_min, fill="#949494", font=("Inter Light", 24 * -1))
+        self.root.f_precip2 = self.canvas.create_text(271.0, 336.0, anchor="nw", text=totalprecip_mm, fill="#FFFFFF",
                                 font=("Inter Light", 24 * -1))
 
         # Forecast Day 3:
@@ -194,16 +194,16 @@ class View:
         self.im3 = PIL.Image.open(fp)
 
         self.day3_image = PIL.ImageTk.PhotoImage(self.im3)
-        self.d3_icon = self.canvas.create_image(
+        self.root.d3_icon = self.canvas.create_image(
             72,
             384,
             image=self.day3_image,
             anchor="nw",
         )
-        self.canvas.create_text(24, 400.0, anchor="nw", text=f_date, fill="#FFFFFF", font=("Inter Light", 24 * -1))
-        self.canvas.create_text(144.0, 400.0, anchor="nw", text=temp_max, fill="#FFFFFF", font=("Inter Light", 24 * -1))
-        self.canvas.create_text(208.0, 400.0, anchor="nw", text=temp_min, fill="#949494", font=("Inter Light", 24 * -1))
-        self.canvas.create_text(271.0, 400.0, anchor="nw", text=totalprecip_mm, fill="#FFFFFF",
+        self.root.f_day3 = self.canvas.create_text(24, 400.0, anchor="nw", text=f_date, fill="#FFFFFF", font=("Inter Light", 24 * -1))
+        self.root.f_tempmax3 =self.canvas.create_text(144.0, 400.0, anchor="nw", text=temp_max, fill="#FFFFFF", font=("Inter Light", 24 * -1))
+        self.root.f_tempmin3 =self.canvas.create_text(208.0, 400.0, anchor="nw", text=temp_min, fill="#949494", font=("Inter Light", 24 * -1))
+        self.root.f_precip3 = self.canvas.create_text(271.0, 400.0, anchor="nw", text=totalprecip_mm, fill="#FFFFFF",
                                 font=("Inter Light", 24 * -1))
 
         # Forecast Day 4:
@@ -211,25 +211,109 @@ class View:
         temp_min = "{t}\xb0".format(t=day4['mintemp_c'])
         temp_max = "{t}\xb0".format(t=day4['maxtemp_c'])
         totalprecip_mm = "{t}mm".format(t=day4['totalprecip_mm'])
-        icon = day2['condition']
+        icon = day4['condition']
         fp = ("" + icon['icon'])
         fp = fp.replace('//cdn.weatherapi.com/', '')
 
         self.im4 = PIL.Image.open(fp)
 
         self.day4_image = PIL.ImageTk.PhotoImage(self.im4)
-        self.d4_icon = self.canvas.create_image(
+        self.root.d4_icon = self.canvas.create_image(
             72,
             448,
             image=self.day2_image,
             anchor="nw",
         )
 
-        self.canvas.create_text(24, 464.0, anchor="nw", text=f_date, fill="#FFFFFF", font=("Inter Light", 24 * -1))
-        self.canvas.create_text(144.0, 464.0, anchor="nw", text=temp_max, fill="#FFFFFF", font=("Inter Light", 24 * -1))
-        self.canvas.create_text(208.0, 464.0, anchor="nw", text=temp_min, fill="#949494", font=("Inter Light", 24 * -1))
-        self.canvas.create_text(271.0, 464.0, anchor="nw", text=totalprecip_mm, fill="#FFFFFF",
+        self.root.f_day4 = self.canvas.create_text(24, 464.0, anchor="nw", text=f_date, fill="#FFFFFF", font=("Inter Light", 24 * -1))
+        self.root.f_tempmax4 =self.canvas.create_text(144.0, 464.0, anchor="nw", text=temp_max, fill="#FFFFFF", font=("Inter Light", 24 * -1))
+        self.root.f_tempmin4 = self.canvas.create_text(208.0, 464.0, anchor="nw", text=temp_min, fill="#949494", font=("Inter Light", 24 * -1))
+        self.root.f_precip4 = self.canvas.create_text(271.0, 464.0, anchor="nw", text=totalprecip_mm, fill="#FFFFFF",
                                 font=("Inter Light", 24 * -1))
 
-    def update_forecast(self):
-        pass
+    def update_forecast(self, data):
+        self.forecast = data['forecastday']
+        now = datetime.datetime.now()
+        start = 0
+
+        for x in self.forecast:
+            start += 1
+            t1 = time.strftime('%x', time.localtime(x['date_epoch']))
+            t2 = now.strftime('%x')
+            if t1 == t2:
+                break
+
+        d1 = self.forecast[start]
+        day = d1['day']
+        d2 = self.forecast[start + 1]
+        day2 = d2['day']
+        d3 = self.forecast[start + 2]
+        day3 = d3['day']
+        d4 = self.forecast[start + 3]
+        day4 = d4['day']
+        # Forecast Day 1:
+
+        f_date = time.strftime('%a', time.localtime(d1['date_epoch']))
+        temp_min = "{t}\xb0".format(t=day['mintemp_c'])
+        temp_max = "{t}\xb0".format(t=day['maxtemp_c'])
+        totalprecip_mm = "{t}mm".format(t=day['totalprecip_mm'])
+        icon = day['condition']
+        fp = ("" + icon['icon'])
+        fp = fp.replace('//cdn.weatherapi.com/','')
+
+        self.im1 = PIL.Image.open(fp)
+        self.day1_image = PIL.ImageTk.PhotoImage(self.im1)
+        self.canvas.itemconfigure(self.root.d1_icon, image=self.day1_image)
+        self.canvas.itemconfigure(self.root.f_day1, text=f_date)
+        self.canvas.itemconfigure(self.root.f_precip1, text=totalprecip_mm)
+        self.canvas.itemconfigure(self.root.f_tempmax1, text=temp_max)
+        self.canvas.itemconfigure(self.root.f_tempmin1, text=temp_min)
+
+        f_date = time.strftime('%a', time.localtime(d2['date_epoch']))
+        temp_min = "{t}\xb0".format(t=day2['mintemp_c'])
+        temp_max = "{t}\xb0".format(t=day2['maxtemp_c'])
+        totalprecip_mm = "{t}mm".format(t=day2['totalprecip_mm'])
+        icon = day2['condition']
+        fp = ("" + icon['icon'])
+        fp = fp.replace('//cdn.weatherapi.com/', '')
+
+        self.im2 = PIL.Image.open(fp)
+        self.day2_image = PIL.ImageTk.PhotoImage(self.im2)
+        self.canvas.itemconfigure(self.root.d2_icon, image=self.day2_image)
+        self.canvas.itemconfigure(self.root.f_day2, text=f_date)
+        self.canvas.itemconfigure(self.root.f_precip2, text=totalprecip_mm)
+        self.canvas.itemconfigure(self.root.f_tempmax2, text=temp_max)
+        self.canvas.itemconfigure(self.root.f_tempmin2, text=temp_min)
+
+        f_date = time.strftime('%a', time.localtime(d3['date_epoch']))
+
+        temp_min = "{t}\xb0".format(t=day3['mintemp_c'])
+        temp_max = "{t}\xb0".format(t=day3['maxtemp_c'])
+        totalprecip_mm = "{t}mm".format(t=day3['totalprecip_mm'])
+        icon = day3['condition']
+        fp = ("" + icon['icon'])
+        fp = fp.replace('//cdn.weatherapi.com/', '')
+
+        self.im3 = PIL.Image.open(fp)
+        self.day3_image = PIL.ImageTk.PhotoImage(self.im3)
+        self.canvas.itemconfigure(self.root.d3_icon, image=self.day3_image)
+        self.canvas.itemconfigure(self.root.f_day3, text=f_date)
+        self.canvas.itemconfigure(self.root.f_precip3, text=totalprecip_mm)
+        self.canvas.itemconfigure(self.root.f_tempmax3, text=temp_max)
+        self.canvas.itemconfigure(self.root.f_tempmin3, text=temp_min)
+
+        f_date = time.strftime('%a', time.localtime(d4['date_epoch']))
+        temp_min = "{t}\xb0".format(t=day4['mintemp_c'])
+        temp_max = "{t}\xb0".format(t=day4['maxtemp_c'])
+        totalprecip_mm = "{t}mm".format(t=day4['totalprecip_mm'])
+        icon = day4['condition']
+        fp = ("" + icon['icon'])
+        fp = fp.replace('//cdn.weatherapi.com/', '')
+
+        self.im4 = PIL.Image.open(fp)
+        self.day4_image = PIL.ImageTk.PhotoImage(self.im4)
+        self.canvas.itemconfigure(self.root.d4_icon, image=self.day4_image)
+        self.canvas.itemconfigure(self.root.f_day4, text=f_date)
+        self.canvas.itemconfigure(self.root.f_precip4, text=totalprecip_mm)
+        self.canvas.itemconfigure(self.root.f_tempmax4, text=temp_max)
+        self.canvas.itemconfigure(self.root.f_tempmin4, text=temp_min)

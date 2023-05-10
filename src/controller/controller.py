@@ -1,7 +1,6 @@
 import datetime
 import time
 import tkinter
-import customtkinter
 import requests
 from view.mirror_gui import View
 from model.weather_model import WeatherModel
@@ -12,7 +11,6 @@ BASE_WEATHER_URL = "http://api.weatherapi.com/v1/forecast.json?key="
 class Controller:
 
     def __init__(self):
-        customtkinter.set_appearance_mode("dark")
         self.root = tkinter.Tk()
         self.state = False
         self.model_weather = WeatherModel()
@@ -70,15 +68,15 @@ class Controller:
         t1 = time.time()
         if t1 - self.t0 > 900:
             self.t0 = time.time()
-            self.get_weather()
-            self.view.update_weather()
-            self.view.update_forecast()
+            data = self.model_weather.get_data()
+            self.view.update_weather(data)
+            self.view.update_forecast(data)
 
         current_time_clock = now.strftime("%H:%M %p")
         self.model_weather.set_clock(current_time_clock)
         data = self.model_weather.get_data()
         self.view.update_clock(data)
 
-        self.root.after(1, self.update_timer)
+        self.root.after(300, self.update_timer)
 
 
